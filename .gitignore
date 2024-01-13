@@ -25,9 +25,9 @@ bld/
 *.user
 _ReSharper.*
 packages
-**/bin/*
-**/obj/*
-*.bin
+bin/
+obj/
+
 
 # Visual Studio 2015 cache/options directory
 .vs/

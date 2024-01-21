@@ -1,13 +1,28 @@
+using Microsoft.AspNetCore.Authorization;
+using TestAuthAspNet.Authorization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 // Authentication
-builder.Services.AddAuthentication().AddCookie("MyCookieAuth", options =>
+builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
 {
     options.Cookie.Name = "MyCookieAuth";
 });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Admin"));
+    options.AddPolicy("MustBelongToHRDepartment", policy => policy.RequireClaim("Department", "HR"));
+    options.AddPolicy("HRManagement", policy => policy
+        .RequireClaim("Department", "HR")
+        .RequireClaim("Manager")
+        .Requirements.Add(new HRManagerProbationRequirement(3)));
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, HRManagerProbationRequirementHandler>();
 
 var app = builder.Build();
 
@@ -24,6 +39,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

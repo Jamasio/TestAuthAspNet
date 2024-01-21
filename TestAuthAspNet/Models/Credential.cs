@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace TestAuthAspNet.Models.Credential;
 
@@ -10,4 +11,7 @@ public class Credential
     [Required]
     [DataType(DataType.Password)]
     public string? Password { get; set; }
+
+    [Display(Name = "Remember Me")]
+    public bool RememberMe { get; set; }
 }

@@ -5,24 +5,30 @@
 
 <div class="container border" style="padding:20px">
     <form method="post">
-        <div class="text-danger" asp-validation-summary="All"></div>
+        <div class="text-danger" asp-validation-summary="None"></div>
         <div class="mb-3 row">
             <div class="col-2">
-                <label asp-for="Credential.UserName"></label>
+                <label asp-for="Credential!.UserName"></label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-                <span asp-validation-for="Credential.UserName" class="text-danger"></span>
+                <input type="text" class="form-control" asp-for="Credential!.UserName" placeholder="Username">
+                <span asp-validation-for="Credential!.UserName" class="text-danger"></span>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-2">
-                <label asp-for="Credential.Password">Password</label>
+                <label asp-for="Credential!.Password">Password</label>
             </div>
             <div class="col-5">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                <span asp-validation-for="Credential.Password" class="text-danger"></span>
+                <input type="password" class="form-control" asp-for="Credential!.Password" placeholder="Password">
+                <span asp-validation-for="Credential!.Password" class="text-danger"></span>
             </div>    
+        </div>
+        <div class="mb-3 row form-check">
+            <div class="col-2">
+                <input type="checkbox" class="form-check-input" asp-for="Credential!.RememberMe" />
+                <label class="form-check-label" asp-for="Credential!.RememberMe"></label>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
